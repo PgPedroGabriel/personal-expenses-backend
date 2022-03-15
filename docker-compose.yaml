@@ -1,0 +1,44 @@
+version: '3'
+
+services:
+    expenses-backend:
+      build: .
+      restart: always
+      container_name: expenses-backend
+      entrypoint: ["/bin/sh", "./entrypoint.sh"]
+      volumes:
+        - .:/usr/app/
+        - /usr/app/node_modules
+      environment:
+        - PORT=3333
+        - DB_USERNAME=postgres
+        - DB_PASSWORD=docker
+        - DB_DATABASE=expenses
+        - DB_HOST=postgress-expenses-backend
+        - DB_DIALECT=postgres
+        - DB_PORT=5432
+      ports:
+        - "3333:3333"
+      depends_on:
+        - postgress-expenses-backend
+      networks:
+        - expenses-backend-network
+
+
+    postgress-expenses-backend:
+      image: postgres:10.4
+      container_name: postgress-expenses-backend
+      restart: always
+      tty: true
+      ports:
+        - "5432:5432"
+      environment:
+        - POSTGRES_USER=postgres
+        - POSTGRES_DB=expenses
+        - POSTGRES_PASSWORD=docker
+      networks:
+        - expenses-backend-network
+
+networks:
+  expenses-backend-network:
+    driver: bridge
