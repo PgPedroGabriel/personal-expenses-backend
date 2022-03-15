@@ -16,7 +16,7 @@
   },
   "scripts": {
     "lintfix": "eslint src --fix --cache",
-    "dev": "nodemon src/server.ts",
+    "dev": "nodemon -L src/server.ts",
     "dev:debug": "nodemon --inspect src/server.ts"
   },
   "devDependencies": {
