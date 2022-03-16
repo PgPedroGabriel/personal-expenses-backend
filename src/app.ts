@@ -1,6 +1,7 @@
 import express, {
   Express, Request, Response,
 } from 'express';
+import './database';
 import Youch from 'youch';
 import 'express-async-errors';
 import cors from 'cors';
